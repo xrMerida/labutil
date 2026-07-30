@@ -1,13 +1,15 @@
+#!/usr/bin/env bash
+
 cmd_init_() {
   if [[ $# -lt 1 ]]; then
-  echo "Usage: labutil.sh init <name> [destination]" >&2
-  echo >&2
-  echo "       Create a new C++ project with <name> in [destination]" >&2
-  echo "       if no [destination] is provided, use current directory" >&2
-  exit 1
+    echo "Usage: labutil.sh init <name> [destination]" >&2
+    echo >&2
+    echo "       Create a new C++ project with <name> in [destination]" >&2
+    echo "       if no [destination] is provided, use current directory" >&2
+    exit 1
   fi
 
-  if [[ $# -gt 1 ]]; then
+  if [[ $# -gt 2 ]]; then
     echo "init: error: too many arguments" >&2
     exit 1
   fi

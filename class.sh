@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 cmd_class_() {
   # Class name
   local NAME="$1"
@@ -5,7 +7,7 @@ cmd_class_() {
   if [[ $# -lt 1 ]]; then
     echo "Usage: labutil.sh class <name>" >&2
     echo >&2
-    echo "       Create a new class with <name> in the current project" >&2
+    echo "  Create a new class with <name> in the current project" >&2
     exit 1
   fi
 
