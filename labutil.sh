@@ -5,25 +5,29 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
 
 usage_() {
-  echo "Usage: labutil.sh <operation> [args]" >&2
-  echo >&2
-  echo "Operations:" >&2
-  echo "  init        Initialize a new C++ project" >&2
-  echo "  class       Create a new class with .h and .cpp files" >&2
-  echo "  update      Update labutil to the latest version" >&2
-  echo "  uninstall   Uninstall labutil" >&2
-  exit 1
+  echo "Labutil - C++ project management tool"
+  echo
+  echo "Usage: labutil.sh <operation> [args] ..."
+  echo
+  echo "Operations:"
+  echo "  init        Initialize a new C++ project"
+  echo "  class       Create a new class with .h and .cpp files"
+  echo "  update      Update labutil to the latest version"
+  echo "  uninstall   Uninstall labutil"
+  echo
 }
 
 # MAIN -------------
 if [[ $# -lt 1 ]]; then
-  usage_
+  usage_ >&2
+  exit 2
 fi
 
 OPERATION="$1"
 
 if [[ $OPERATION == "--help" || $OPERATION == "-h" ]]; then
   usage_
+  exit 0
 fi
 
 case "$OPERATION" in
@@ -44,6 +48,7 @@ case "$OPERATION" in
     cmd_update_ "${@:2}"
     ;;
   *)
-    usage_
+    usage_ >&2
+    exit 2
     ;;
 esac

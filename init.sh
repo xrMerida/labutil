@@ -3,7 +3,7 @@ cmd_init_() {
   echo "Usage: labutil.sh init <name> [destination]" >&2
   echo >&2
   echo "       Create a new C++ project with <name> in [destination]" >&2
-  echo "       if no [destination] is provided, use ./<name>" >&2
+  echo "       if no [destination] is provided, use current directory" >&2
   exit 1
   fi
 
@@ -19,17 +19,19 @@ cmd_init_() {
   fi
 
   local NAME="$1"
-  local DEST="${2:$NAME}"
+  local DEST="${2:-$PWD}"
   local LNAME
   LNAME="$(echo "$NAME" | tr '[:upper:]' '[:lower:]')"
 
-  if [[ -d "$DEST" ]]; then
-    echo "init: error: destination '$DEST' already exists" >&2
+  mkdir -p "$DEST" >/dev/null 2>&1
+  # Check if folder is empty
+  if [[ -n $(ls -A "$DEST") ]]; then
+    echo "init: error: destination '$DEST' is not empty" >&2
     exit 1
   fi
 
   # Project creation --------
-  cp -r "$TEMPLATE" "$DEST"
+  cp -a "$TEMPLATE/." "$DEST"
 
   find "$DEST" -type f -exec sed -i "s/__NAME/$NAME/g" {} +
   find "$DEST" -type f -exec sed -i "s/__LNAME/$LNAME/g" {} +
