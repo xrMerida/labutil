@@ -3,6 +3,6 @@ A script aimed to help with creating and managing laboratories in Linux and MacO
 
 # Installation
 To install, run the following command:
-```bash
-curl -sSL https://raw.githubusercontent.com/xrMerida/labutil/refs/heads/main/install.sh | bash
+```sh
+  curl -sSL https://raw.githubusercontent.com/xrMerida/labutil/refs/heads/main/install.sh | sh
 ```

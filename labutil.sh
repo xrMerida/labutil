@@ -10,6 +10,7 @@ usage_() {
   echo "Operations:" >&2
   echo "  init        Initialize a new C++ project" >&2
   echo "  class       Create a new class with .h and .cpp files" >&2
+  echo "  update      Update labutil to the latest version" >&2
   echo "  uninstall   Uninstall labutil" >&2
   exit 1
 }
@@ -35,9 +36,12 @@ case "$OPERATION" in
     cmd_class_ "${@:2}"
     ;;
   uninstall)
-    echo "Not yet implemented" >&2
-    # source "$SCRIPT_DIR/uninstall.sh"
-    # cmd_uninstall_ "${@:2}"
+    source "$SCRIPT_DIR/setup.sh"
+    cmd_uninstall_ "${@:2}"
+    ;;
+  update)
+    source "$SCRIPT_DIR/setup.sh"
+    cmd_update_ "${@:2}"
     ;;
   *)
     usage_
