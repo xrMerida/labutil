@@ -1,0 +1,10 @@
+[
+  {
+    "label": "Debug native binary",
+    "build": "cmake build",
+    "program": "$ZED_WORKTREE_ROOT/build/__LNAME",
+    "request": "launch",
+    "console": "integratedTerminal",
+    "adapter": "CodeLLDB",
+  },
+]
