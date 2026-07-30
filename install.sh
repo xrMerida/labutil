@@ -19,9 +19,20 @@ fi
 
 # Install script for labutil
 echo "Installing labutil into $INSTALL_DIR"
+
 mkdir -p "$INSTALL_DIR"
 git clone "$UPSTREAM_URL" "$INSTALL_DIR"
+
 echo "Creating symlink for labutil in $XDG_BIN_DIR"
 rm -fr "$XDG_BIN_DIR/labutil"
 ln -s "$INSTALL_DIR/labutil.sh" "$XDG_BIN_DIR/labutil"
+
+# Check if $PATH already has the local bin path
+if ! echo "$PATH" | grep -q "$XDG_BIN_DIR"; then
+  {
+    echo
+    echo "# Bin directory"
+    echo "export PATH=\"$XDG_BIN_DIR:\$PATH\""
+  } >> "$HOME/.bashrc"
+fi
 echo "Done! Run 'labutil' to get started"
