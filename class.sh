@@ -1,8 +1,16 @@
 cmd_class_() {
+  # Class name
+  local NAME="$1"
+
   if [[ $# -lt 1 ]]; then
     echo "Usage: labutil.sh class <name>" >&2
     echo >&2
     echo "       Create a new class with <name> in the current project" >&2
+    exit 1
+  fi
+
+  if [[ $# -gt 1 ]]; then
+    echo "class: error: too many arguments" >&2
     exit 1
   fi
 
@@ -11,12 +19,10 @@ cmd_class_() {
   CMAKETXT="./CMakeLists.txt"
 
   if [[ ! -f "$CMAKETXT" ]]; then
-    echo "Could not find $CMAKETXT" >&2
+    echo "class: error: not a valid project directory" >&2
     exit 1
   fi
 
-  # Class name
-  local NAME="$1"
   # Class lowercase name
   local LNAME
   LNAME="$(echo "$NAME" | tr '[:upper:]' '[:lower:]')"
@@ -51,5 +57,5 @@ cmd_class_() {
   sed --in-place "s/__LNAME/$LNAME/g" "$DOTH"
   sed --in-place "s/__UNAME/$UNAME/g" "$DOTH"
 
-  echo "Files '$DOTCPP' & '$DOTH' created successfully"
+  echo "class: files '$DOTCPP' & '$DOTH' created successfully"
 }

@@ -7,19 +7,24 @@ cmd_init_() {
   exit 1
   fi
 
+  if [[ $# -gt 1 ]]; then
+    echo "init: error: too many arguments" >&2
+    exit 1
+  fi
+
   local TEMPLATE="$SCRIPT_DIR/cmd_init"
   if [[ ! -d $TEMPLATE ]]; then
-    echo "Internal error: cannot find template dir" >&2
+    echo "init: internal error: cannot find template dir" >&2
     exit 1
   fi
 
   local NAME="$1"
-  local DEST="${2:-$NAME}"
+  local DEST="${2:$NAME}"
   local LNAME
   LNAME="$(echo "$NAME" | tr '[:upper:]' '[:lower:]')"
 
   if [[ -d "$DEST" ]]; then
-    echo "Error: destination '$DEST' already exists" >&2
+    echo "init: error: destination '$DEST' already exists" >&2
     exit 1
   fi
 
@@ -31,5 +36,5 @@ cmd_init_() {
 
   mkdir -p "$DEST/include/$LNAME"
 
-  echo "Created project at './$DEST' with name '$NAME'"
+  echo "init: project initialized at '$DEST' with name '$NAME'"
 }
