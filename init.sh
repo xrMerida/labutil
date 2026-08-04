@@ -27,7 +27,7 @@ cmd_init_() {
 
   mkdir -p "$DEST" >/dev/null 2>&1
   # Check that folder is not empty if it exists
-  if [[ -d "$DEST" || -n $(ls -A "$DEST") ]]; then
+  if [[ ! -d "$DEST" || -n $(ls -A "$DEST") ]]; then
     echo "init: error: destination '$DEST' is not empty" >&2
     exit 1
   fi
