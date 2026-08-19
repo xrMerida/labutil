@@ -1,7 +1,7 @@
 [
   {
     "label": "Debug native binary",
-    "build": "cmake build",
+    "build": "CMAKE: Build",
     "program": "$ZED_WORKTREE_ROOT/build/__LNAME",
     "request": "launch",
     "console": "integratedTerminal",
