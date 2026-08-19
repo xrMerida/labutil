@@ -42,11 +42,8 @@ echo "Installing labutil into $INSTALL_DIR ..."
 mkdir -p "$INSTALL_DIR"
 git clone "$UPSTREAM_URL" "$INSTALL_DIR"
 
-echo "Creating link for labutil in $XDG_BIN_DIR"
-rm -f "$XDG_BIN_DIR/labutil"
-if ln "$INSTALL_DIR/labutil.sh" "$XDG_BIN_DIR/labutil"; then
-  ln -s "$INSTALL_DIR/labutil.sh" "$XDG_BIN_DIR/labutil"
-fi
+echo "Creating symlink for labutil in $XDG_BIN_DIR"
+ln -s "$INSTALL_DIR/labutil.sh" "$XDG_BIN_DIR/labutil"
 
 # Add localbin to PATH ------------
 if ! echo "$PATH" | grep -q "$XDG_BIN_DIR"; then
@@ -68,4 +65,4 @@ if ! command -v lldb >/dev/null 2>&1; then
   echo "Consider installing lldb" >&2
 fi
 
-echo "Done! Run 'labutil' to get started"
+echo "Installed at '$INSTALL_DIR', run 'labutil' to get started"
