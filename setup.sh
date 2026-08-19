@@ -2,7 +2,8 @@
 
 cmd_update_() {
   echo "Updating labutil..."
-  cd "$SCRIPT_DIR" || echo "setup: internal error: $SCRIPT_DIR does not exist"
+  cd "$SCRIPT_DIR" \
+    || echo "setup: internal error: $SCRIPT_DIR does not exist"
   git pull origin main
   echo "Done!"
 }

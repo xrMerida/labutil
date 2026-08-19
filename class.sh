@@ -16,7 +16,7 @@ cmd_class_() {
     exit 1
   fi
 
-  # CMakeLists.txt file
+  # Validate project direcotry -----------------
   local CMAKETXT
   CMAKETXT="./CMakeLists.txt"
 
@@ -37,20 +37,18 @@ cmd_class_() {
   # Project's lowercase name
   local LPROJ
   LPROJ="$(echo "$PROJ" | tr '[:upper:]' '[:lower:]')"
-  # .h file location
+  # Class names
   local DOTH="./include/$LPROJ/$LNAME.h"
-  # .cpp file location
   local DOTCPP="./src/$LNAME.cpp"
 
-  # Create directories if they don't exist
+  # Class creation ----------------
   mkdir -p "$(dirname "$DOTCPP")"
   mkdir -p "$(dirname "$DOTH")"
 
-  # Copy the dummy files
   cp "$SCRIPT_DIR/cmd_class/__LNAME.h" "$DOTH"
   cp "$SCRIPT_DIR/cmd_class/__LNAME.cpp" "$DOTCPP"
 
-  # Replace placeholders with actual values
+  # Replace names ---------------------
   sed --in-place "s/__NAME/$NAME/g" "$DOTCPP"
   sed --in-place "s/__LNAME/$LNAME/g" "$DOTCPP"
   sed --in-place "s/__UNAME/$UNAME/g" "$DOTCPP"

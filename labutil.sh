@@ -5,7 +5,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
 
 usage_() {
-  echo "Labutil - C++ project management tool"
+  echo "Labutil - C++ lab management tool"
   echo
   echo "Usage: labutil.sh <operation> [args] ..."
   echo
