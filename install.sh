@@ -2,11 +2,30 @@
 
 set -e
 
-XDG_BIN_DIR="${XDG_BIN_DIR:-$HOME/.local/bin}"
-INSTALL_DIR="$XDG_BIN_DIR/.labutil"
+XDG_DATA_DIR="${XDG_DATA_DIR:-$HOME/.local/bin}"
+INSTALL_DIR="$XDG_DATA_DIR/labutil"
 UPSTREAM_URL="https://github.com/xrMerida/labutil.git"
 
-# Validate
+# GPL Lisence disclaimer
+echo "labutil is free software: you can redistribute it and/or modify"
+echo "it under the terms of the GNU General Public License as published by"
+echo "the Free Software Foundation, either version 3 of the License, or"
+echo "(at your option) any later version."
+echo
+echo "labutil is distributed in the hope that it will be useful,"
+echo "but WITHOUT ANY WARRANTY; without even the implied warranty of"
+echo "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the"
+echo "GNU General Public License for more details."
+echo
+
+echo "Do you want to install labutil? [Y/n]"
+read -r REPLY
+if [[ "$REPLY" == "n" || "$REPLY" == "N" ]]; then
+  echo "Installation cancelled by user"
+  exit 0
+fi
+
+# Validate ---------
 if ! command -v git >/dev/null 2>&1; then
   echo "labutil requires git to be installed" >&2
   exit 1
@@ -17,22 +36,36 @@ if [ -d "$INSTALL_DIR" ]; then
   exit 1
 fi
 
-# Install script for labutil
-echo "Installing labutil into $INSTALL_DIR"
+# Install process -----------
+echo "Installing labutil into $INSTALL_DIR ..."
 
 mkdir -p "$INSTALL_DIR"
 git clone "$UPSTREAM_URL" "$INSTALL_DIR"
 
-echo "Creating symlink for labutil in $XDG_BIN_DIR"
-rm -fr "$XDG_BIN_DIR/labutil"
-ln -s "$INSTALL_DIR/labutil.sh" "$XDG_BIN_DIR/labutil"
+echo "Creating link for labutil in $XDG_BIN_DIR"
+rm -f "$XDG_BIN_DIR/labutil"
+if ln "$INSTALL_DIR/labutil.sh" "$XDG_BIN_DIR/labutil"; then
+  ln -s "$INSTALL_DIR/labutil.sh" "$XDG_BIN_DIR/labutil"
+fi
 
-# Check if $PATH already has the local bin path
+# Add localbin to PATH ------------
 if ! echo "$PATH" | grep -q "$XDG_BIN_DIR"; then
   {
     echo
     echo "# Bin directory"
     echo "export PATH=\"$XDG_BIN_DIR:\$PATH\""
   } >> "$HOME/.bashrc"
+  echo "Restart your shell to apply changes"
 fi
+
+if ! command -v make >/dev/null 2>&1; then
+  echo "Consider installing gnumake (aka make)" >&2
+fi
+if ! command -v clang >/dev/null 2>&1; then
+  echo "Consider installing clang" >&2
+fi
+if ! command -v lldb >/dev/null 2>&1; then
+  echo "Consider installing lldb" >&2
+fi
+
 echo "Done! Run 'labutil' to get started"
