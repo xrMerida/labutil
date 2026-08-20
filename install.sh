@@ -2,8 +2,11 @@
 
 set -e
 
-XDG_DATA_DIR="${XDG_DATA_DIR:-$HOME/.local/bin}"
-INSTALL_DIR="$XDG_DATA_DIR/labutil"
+XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+XDG_BIN_HOME="${XDG_BIN_HOME:-$HOME/.local/bin}"
+
+INSTALL_DIR="$XDG_DATA_HOME/labutil"
+SYMLINK="$XDG_BIN_HOME/labutil"
 UPSTREAM_URL="https://github.com/xrMerida/labutil.git"
 
 # GPL Lisence disclaimer
@@ -18,42 +21,29 @@ echo "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the"
 echo "GNU General Public License for more details."
 echo
 
-echo "Do you want to install labutil? [Y/n]"
-read -r REPLY
-if [[ "$REPLY" == "n" || "$REPLY" == "N" ]]; then
-  echo "Installation cancelled by user"
-  exit 0
-fi
-
 # Validate ---------
 if ! command -v git >/dev/null 2>&1; then
   echo "labutil requires git to be installed" >&2
   exit 1
 fi
+
+# Install process -----------
 if [ -d "$INSTALL_DIR" ]; then
   echo "labutil is already installed in $INSTALL_DIR" >&2
   echo "update it using: labutil update" >&2
   exit 1
 fi
 
-# Install process -----------
 echo "Installing labutil into $INSTALL_DIR ..."
-
 mkdir -p "$INSTALL_DIR"
 git clone "$UPSTREAM_URL" "$INSTALL_DIR"
 
-echo "Creating symlink for labutil in $XDG_BIN_DIR"
-ln -s "$INSTALL_DIR/labutil.sh" "$XDG_BIN_DIR/labutil"
+echo "Creating symlink for labutil in $SYMLINK"
+mkdir -p "$XDG_BIN_HOME"
+chmod 755 "$INSTALL_DIR/labutil.sh"
+ln -s "$INSTALL_DIR/labutil.sh" "$SYMLINK"
+chmod 755 "$SYMLINK"
 
-# Add localbin to PATH ------------
-if ! echo "$PATH" | grep -q "$XDG_BIN_DIR"; then
-  {
-    echo
-    echo "# Bin directory"
-    echo "export PATH=\"$XDG_BIN_DIR:\$PATH\""
-  } >> "$HOME/.bashrc"
-  echo "Restart your shell to apply changes"
-fi
 
 if ! command -v make >/dev/null 2>&1; then
   echo "Consider installing gnumake (aka make)" >&2
@@ -65,4 +55,10 @@ if ! command -v lldb >/dev/null 2>&1; then
   echo "Consider installing lldb" >&2
 fi
 
-echo "Installed at '$INSTALL_DIR', run 'labutil' to get started"
+if ! echo "$PATH" | grep -q "$XDG_BIN_HOME"; then
+  echo "You should add $XDG_BIN_HOME to your PATH"
+  echo "then run 'labutil' to get started."
+else
+  echo "Installed at '$INSTALL_DIR'"
+  echo "run 'labutil' to get started"
+fi
