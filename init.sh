@@ -37,8 +37,8 @@ cmd_init_() {
   cp -a "$TEMPLATE" "$DEST"
 
   # Replace names -------------------
-  find "$DEST" -type f -exec sed -i "s/__NAME/$NAME/g" {} +
-  find "$DEST" -type f -exec sed -i "s/__LNAME/$LNAME/g" {} +
+  find "$DEST" -type f -exec sed -i 's/__NAME/$NAME/g' {} +
+  find "$DEST" -type f -exec sed -i 's/__LNAME/$LNAME/g' {} +
 
   mkdir -p "$DEST/include/$LNAME"
 

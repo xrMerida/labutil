@@ -2,6 +2,12 @@
 
 set -e
 
+if [ -d "$INSTALL_DIR" ]; then
+  echo "labutil is already installed in $INSTALL_DIR" >&2
+  echo "update it using: labutil update" >&2
+  exit 1
+fi
+
 XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 XDG_BIN_HOME="${XDG_BIN_HOME:-$HOME/.local/bin}"
 
@@ -28,12 +34,6 @@ if ! command -v git >/dev/null 2>&1; then
 fi
 
 # Install process -----------
-if [ -d "$INSTALL_DIR" ]; then
-  echo "labutil is already installed in $INSTALL_DIR" >&2
-  echo "update it using: labutil update" >&2
-  exit 1
-fi
-
 echo "Installing labutil into $INSTALL_DIR ..."
 mkdir -p "$INSTALL_DIR"
 git clone "$UPSTREAM_URL" "$INSTALL_DIR"
@@ -41,9 +41,11 @@ git clone "$UPSTREAM_URL" "$INSTALL_DIR"
 echo "Creating symlink for labutil in $SYMLINK"
 mkdir -p "$XDG_BIN_HOME"
 chmod 755 "$INSTALL_DIR/labutil.sh"
+rm -f "$SYMLINK"
 ln -s "$INSTALL_DIR/labutil.sh" "$SYMLINK"
 chmod 755 "$SYMLINK"
 
+echo "====== Installed ======"
 
 if ! command -v make >/dev/null 2>&1; then
   echo "Consider installing gnumake (aka make)" >&2
