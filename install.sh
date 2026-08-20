@@ -18,13 +18,6 @@ echo "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the"
 echo "GNU General Public License for more details."
 echo
 
-echo "Do you want to install labutil? [Y/n]"
-read -r REPLY
-if [[ "$REPLY" == "n" || "$REPLY" == "N" ]]; then
-  echo "Installation cancelled by user"
-  exit 0
-fi
-
 # Validate ---------
 if ! command -v git >/dev/null 2>&1; then
   echo "labutil requires git to be installed" >&2
