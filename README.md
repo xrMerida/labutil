@@ -1,5 +1,5 @@
 # Lab Utilities
-A script aimed to help with creating and managing laboratories in Linux and MacOS
+A script aimed to help with creating and managing laboratories in Linux systems.
 
 # Installation
 To install, run the following command:
