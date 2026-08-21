@@ -2,7 +2,11 @@
 
 cmd_update_() {
   FORCE=false
-  if [[ $1 == "-f" ]]; then
+  if [[ $# -gt 1 ]]; then
+    echo "error: update: too many arguments" >&2
+    exit 1;
+  fi
+  if [[ $# -eq 1 && $1 == "-f" ]]; then
     FORCE=true
   fi
 
@@ -11,7 +15,7 @@ cmd_update_() {
     || echo "setup: internal error: $SCRIPT_DIR does not exist"
 
   if $FORCE; then
-    git pull origin main -f
+    git pull origin main -f --rebase
   else
     git pull origin main
   fi
