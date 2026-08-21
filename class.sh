@@ -33,7 +33,7 @@ cmd_class_() {
   UNAME="$(echo "$NAME" | tr '[:lower:]' '[:upper:]')"
   # Project's name
   local PROJ
-  PROJ="$(grep -oPi '(?i)\bproject\(\K[^)]+' "$CMAKETXT")"
+  PROJ="$(sed -nE 's/^[[:space:]]*project\(([^)]+)\).*/\1/Ip' "$CMAKETXT")"
   # Project's lowercase name
   local LPROJ
   LPROJ="$(echo "$PROJ" | tr '[:upper:]' '[:lower:]')"

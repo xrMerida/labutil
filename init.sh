@@ -34,11 +34,11 @@ cmd_init_() {
     echo "init: internal error: cannot find template dir" >&2
     exit 1
   fi
-  cp -a "$TEMPLATE" "$DEST"
+  cp -a "$TEMPLATE"/. "$DEST"
 
   # Replace names -------------------
-  find "$DEST" -type f -exec sed -i 's/__NAME/$NAME/g' {} +
-  find "$DEST" -type f -exec sed -i 's/__LNAME/$LNAME/g' {} +
+  find "$DEST" -type f -exec sed -i "s/__NAME/$NAME/g" {} +
+  find "$DEST" -type f -exec sed -i "s/__LNAME/$LNAME/g" {} +
 
   mkdir -p "$DEST/include/$LNAME"
 
