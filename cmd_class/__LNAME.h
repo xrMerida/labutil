@@ -1,9 +1,6 @@
-#ifndef __UNAME_H
-#define __UNAME_H
+#pragma once
 
 class __NAME {
 public:
 private:
 };
-
-#endif // !__UNAME_H

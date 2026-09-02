@@ -19,7 +19,7 @@ cmd_init_() {
 
   local TEMPLATE="$SCRIPT_DIR/cmd_init"
   local NAME="$1"
-  local DEST="${2:-$PWD}"
+  local DEST="${2:-.}"
   local LNAME
   LNAME="$(echo "$NAME" | tr '[:upper:]' '[:lower:]')"
 
@@ -34,11 +34,19 @@ cmd_init_() {
     echo "init: internal error: cannot find template dir" >&2
     exit 1
   fi
-  cp -a "$TEMPLATE"/. "$DEST"
 
   # Replace names -------------------
-  find "$DEST" -type f -exec sed -i '' "s/__NAME/$NAME/g" {} +
-  find "$DEST" -type f -exec sed -i '' "s/__LNAME/$LNAME/g" {} +
+  while IFS= read -r file; do
+    local dest="$DEST/${file#"$TEMPLATE"/}"
+    mkdir -p "${dest%/*}"
+
+    sed \
+      -e "s/__NAME/$NAME/g" \
+      -e "s/__LNAME/$LNAME/g" \
+      "$file" \
+      > "$dest"
+  done < <(find "$TEMPLATE" -type f)
+
 
   mkdir -p "$DEST/include/$LNAME"
 

@@ -1,16 +1,12 @@
 #!/usr/bin/env bash
 
 cmd_class_() {
-  # Class name
-  local NAME="$1"
-
   if [[ $# -lt 1 ]]; then
     echo "Usage: labutil.sh class <name>" >&2
     echo >&2
     echo "  Create a new class with <name> in the current project" >&2
     exit 1
   fi
-
   if [[ $# -gt 1 ]]; then
     echo "class: error: too many arguments" >&2
     exit 1
@@ -25,12 +21,11 @@ cmd_class_() {
     exit 1
   fi
 
+  # Class name
+  local NAME="$1"
   # Class lowercase name
   local LNAME
   LNAME="$(echo "$NAME" | tr '[:upper:]' '[:lower:]')"
-  # Class uppercase name
-  local UNAME
-  UNAME="$(echo "$NAME" | tr '[:lower:]' '[:upper:]')"
   # Project's name
   local PROJ
   PROJ="$(sed -nE 's/^[[:space:]]*project\(([^)]+)\).*/\1/Ip' "$CMAKETXT")"
@@ -45,17 +40,22 @@ cmd_class_() {
   mkdir -p "$(dirname "$DOTCPP")"
   mkdir -p "$(dirname "$DOTH")"
 
-  cp "$SCRIPT_DIR/cmd_class/__LNAME.h" "$DOTH"
-  cp "$SCRIPT_DIR/cmd_class/__LNAME.cpp" "$DOTCPP"
+  # Redirect files with names replaced ---------------------
+  local SRCDOTH="$SCRIPT_DIR/cmd_class/__LNAME.h"
+  local SRCDOTCPP="$SCRIPT_DIR/cmd_class/__LNAME.cpp"
 
-  # Replace names ---------------------
-  sed -i '' "s/__NAME/$NAME/g" "$DOTCPP"
-  sed -i '' "s/__LNAME/$LNAME/g" "$DOTCPP"
-  sed -i '' "s/__UNAME/$UNAME/g" "$DOTCPP"
+  sed \
+    -e "s/__NAME/$NAME/g" \
+    -e "s/__LNAME/$LNAME/g" \
+    "$SRCDOTCPP" \
+    > "$DOTCPP"
 
-  sed -i '' "s/__NAME/$NAME/g" "$DOTH"
-  sed -i '' "s/__LNAME/$LNAME/g" "$DOTH"
-  sed -i '' "s/__UNAME/$UNAME/g" "$DOTH"
+  sed \
+    -e "s/__NAME/$NAME/g" \
+    -e "s/__LNAME/$LNAME/g" \
+    "$SRCDOTH" \
+    > "$DOTH"
+
 
   echo "class: files '$DOTCPP' & '$DOTH' created successfully"
 }
