@@ -2,9 +2,11 @@
 
 cmd_class_() {
   if [[ $# -lt 1 ]]; then
-    echo "Usage: labutil.sh class <name>" >&2
-    echo >&2
-    echo "  Create a new class with <name> in the current project" >&2
+    cat <<EOF >&2
+Usage: labutil.sh class <name>
+
+  Create a new class with <name> in the current project
+EOF
     exit 1
   fi
   if [[ $# -gt 1 ]]; then

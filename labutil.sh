@@ -5,15 +5,17 @@ set -euo pipefail
 SCRIPT_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/labutil"
 
 usage_() {
-  echo "Labutil - C++ lab management tool"
-  echo
-  echo "Usage: labutil.sh <operation> [args] ..."
-  echo
-  echo "Operations:"
-  echo "  init        Initialize a new C++ project"
-  echo "  class       Create a new class with .h and .cpp files"
-  echo "  update      Update labutil to the latest version"
-  echo "  uninstall   Uninstall labutil"
+  cat <<EOF
+Labutil - C++ lab management tool
+
+Usage: labutil.sh <operation> [args] ...
+
+Operations:
+  init        Initialize a new C++ project
+  class       Create a new class with .h and .cpp files
+  update      Update labutil to the latest version
+  uninstall   Uninstall labutil
+EOF
 }
 
 # MAIN -------------

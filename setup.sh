@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 cmd_update_() {
-  FORCE=false
   if [[ $# -gt 1 ]]; then
     echo "error: update: too many arguments" >&2
     exit 1;
@@ -11,20 +10,17 @@ cmd_update_() {
   fi
 
   echo "Updating labutil..."
-  cd "$SCRIPT_DIR" \
-    || echo "setup: internal error: $SCRIPT_DIR does not exist"
 
-  local FAILED=false
-  if $FORCE; then
-    git pull origin main -qf --rebase || FAILED=true
+  if [[ $FORCE ]]; then
+    git -C "$SCRIPT_DIR" pull origin main -qf --rebase || FAILED=true
   else
-    git pull origin main -q || FAILED=true
+    git -C "$SCRIPT_DIR" pull origin main -q || FAILED=true
   fi
 
   # Check for failed updates
-  if $FAILED; then
+  if [[ "$FAILED" ]]; then
     echo "setup: update failed" >&2
-    if ! $FORCE; then
+    if [[ ! $FORCE ]]; then
       echo "use 'labutil update -f' force update" >&2
     fi
     exit 1

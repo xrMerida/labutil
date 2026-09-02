@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
 
-cmd_init_usage_() {
-  echo "Usage: labutil.sh init <name> [destination]"
-  echo
-  echo "  Create a new C++ project with <name> in [destination]"
-  echo "  if no [destination] is provided, use current directory"
-}
-
 cmd_init_() {
   if [[ $# -lt 1 ]]; then
-    cmd_init_usage_ >&2
+    cat << EOF >&2
+Usage: labutil.sh init <name> [destination]
+
+  Create a new C++ project with <name> in [destination]
+  if no [destination] is provided, use current directory
+EOF
     exit 1
   fi
   if [[ $# -gt 2 ]]; then
