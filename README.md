@@ -4,5 +4,5 @@ A script aimed to help with creating and managing laboratories in Linux and MacO
 # Installation
 To install, run the following command:
 ```sh
-  curl -fsSL https://raw.githubusercontent.com/xrMerida/labutil/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/xrMerida/labutil/main/install.sh | sh
 ```

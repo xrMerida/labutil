@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
+SCRIPT_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/labutil"
 
 usage_() {
   echo "Labutil - C++ lab management tool"
@@ -14,7 +14,6 @@ usage_() {
   echo "  class       Create a new class with .h and .cpp files"
   echo "  update      Update labutil to the latest version"
   echo "  uninstall   Uninstall labutil"
-  echo
 }
 
 # MAIN -------------

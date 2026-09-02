@@ -49,13 +49,13 @@ cmd_class_() {
   cp "$SCRIPT_DIR/cmd_class/__LNAME.cpp" "$DOTCPP"
 
   # Replace names ---------------------
-  sed --in-place "s/__NAME/$NAME/g" "$DOTCPP"
-  sed --in-place "s/__LNAME/$LNAME/g" "$DOTCPP"
-  sed --in-place "s/__UNAME/$UNAME/g" "$DOTCPP"
+  sed -i '' "s/__NAME/$NAME/g" "$DOTCPP"
+  sed -i '' "s/__LNAME/$LNAME/g" "$DOTCPP"
+  sed -i '' "s/__UNAME/$UNAME/g" "$DOTCPP"
 
-  sed --in-place "s/__NAME/$NAME/g" "$DOTH"
-  sed --in-place "s/__LNAME/$LNAME/g" "$DOTH"
-  sed --in-place "s/__UNAME/$UNAME/g" "$DOTH"
+  sed -i '' "s/__NAME/$NAME/g" "$DOTH"
+  sed -i '' "s/__LNAME/$LNAME/g" "$DOTH"
+  sed -i '' "s/__UNAME/$UNAME/g" "$DOTH"
 
   echo "class: files '$DOTCPP' & '$DOTH' created successfully"
 }

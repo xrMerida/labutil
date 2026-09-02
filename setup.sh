@@ -14,14 +14,19 @@ cmd_update_() {
   cd "$SCRIPT_DIR" \
     || echo "setup: internal error: $SCRIPT_DIR does not exist"
 
+  local FAILED=false
   if $FORCE; then
-    git pull origin main -f --rebase
+    git pull origin main -qf --rebase || FAILED=true
   else
-    git pull origin main
+    git pull origin main -q || FAILED=true
   fi
 
-  if [[ $? -ne 0 && ! $FORCE ]]; then
-    echo "Use '-f' flag to force update"
+  # Check for failed updates
+  if $FAILED; then
+    echo "setup: update failed" >&2
+    if ! $FORCE; then
+      echo "use 'labutil update -f' force update" >&2
+    fi
     exit 1
   fi
   echo "Done!"
@@ -30,6 +35,6 @@ cmd_update_() {
 cmd_uninstall_() {
   echo "Uninstalling labutil..."
   rm -rf "$SCRIPT_DIR"
-  rm "$SCRIPT_DIR/../labutil"
+  rm -f "${XDG_BIN_HOME:-$HOME/.local/bin}/labutil"
   echo "Done!"
 }
