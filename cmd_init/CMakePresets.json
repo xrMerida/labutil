@@ -14,17 +14,15 @@
             }
         },
         {
-            "name": "x64-debug",
-            "displayName": "x64 Debug",
-            "description": "Sets debug build type, x64 arch and cl compiler",
+            "name": "Windows-debug",
+            "displayName": "Windows Debug",
+            "description": "Sets debug build type and x64 arch",
             "inherits": "base",
             "architecture": {
                 "value": "x64",
                 "strategy": "external"
             },
             "cacheVariables": {
-                "CMAKE_C_COMPILER": "cl",
-                "CMAKE_CXX_COMPILER": "cl",
                 "CMAKE_BUILD_TYPE": "Debug"
             },
             "condition": {
@@ -34,16 +32,16 @@
             }
         },
         {
-            "name": "x64-release",
-            "displayName": "x64 Release",
+            "name": "Windows-release",
+            "displayName": "Windows Release",
             "description": "Sets release build type",
-            "inherits": "x64-debug",
+            "inherits": "Windows-debug",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
         },
         {
-            "name": "linux-debug",
+            "name": "Linux-debug",
             "displayName": "Linux Debug",
             "description": "Sets debug build type",
             "inherits": "base",
@@ -65,16 +63,16 @@
             }
         },
         {
-            "name": "linux-release",
+            "name": "Linux-release",
             "displayName": "Linux Release",
             "description": "Sets release build type",
-            "inherits": "linux-debug",
+            "inherits": "Linux-debug",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
         },
         {
-            "name": "macos-debug",
+            "name": "Darwin-debug",
             "displayName": "MacOS Debug",
             "description": "Sets debug build type",
             "inherits": "base",
@@ -96,10 +94,10 @@
             }
         },
         {
-            "name": "macos-release",
+            "name": "Darwin-release",
             "displayName": "MacOS Release",
             "description": "Sets release build type",
-            "inherits": "macos-debug",
+            "inherits": "Darwin-debug",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
@@ -107,42 +105,22 @@
     ],
     "buildPresets": [
         {
-            "name": "default-build-linux",
+            "name": "default-build-Linux",
             "displayName": "Default",
-            "configurePreset": "linux-debug",
+            "configurePreset": "Linux-debug",
             "description": "Vanilla build"
         },
         {
-            "name": "default-build-windows",
+            "name": "default-build-Windows",
             "displayName": "Default",
-            "configurePreset": "x64-debug",
+            "configurePreset": "Windows-debug",
             "description": "Vanilla build"
         },
         {
-            "name": "default-build-macos",
+            "name": "default-build-Darwin",
             "displayName": "Default",
-            "configurePreset": "macos-debug",
+            "configurePreset": "Darwin-debug",
             "description": "Vanilla build"
-        }
-    ],
-    "testPresets": [
-        {
-            "name": "core-test-linux",
-            "description": "Enable output on failure",
-            "configurePreset": "linux-debug",
-            "output": {
-                "outputOnFailure": true
-            }
-        },
-        {
-            "name": "core-test-windows",
-            "inherits": "core-test-linux",
-            "configurePreset": "x64-debug"
-        },
-        {
-            "name": "core-test-macos",
-            "inherits": "core-test-linux",
-            "configurePreset": "macos-debug"
         }
     ]
 }

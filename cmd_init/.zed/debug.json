@@ -1,16 +1,8 @@
 [
     {
         "label": "Linux Debug",
-        "build": "CMake: Linux Build",
-        "program": "$ZED_WORKTREE_ROOT/build/linux-debug/__LNAME",
-        "request": "launch",
-        "console": "integratedTerminal",
-        "adapter": "CodeLLDB",
-    },
-    {
-        "label": "MacOS Debug",
-        "build": "CMake: MacOS Build ",
-        "program": "$ZED_WORKTREE_ROOT/build/macos-debug/__LNAME",
+        "build": "CMake: Build",
+        "program": "$ZED_WORKTREE_ROOT/build/__LNAME",
         "request": "launch",
         "console": "integratedTerminal",
         "adapter": "CodeLLDB",

@@ -1,42 +1,17 @@
 [
     {
-        "label": "CMake: Configure Linux Debug",
-        "command": "cmake --preset linux-debug",
-        "tags": ["cmake-project"],
+        "label": "CMake: Configure Debug",
+        "command": "cmake --preset $(uname)-debug",
+        "tags": ["cmake-project", "native"],
     },
     {
-        "label": "CMake: Configure Linux Release",
-        "command": "cmake --preset linux-release",
-        "tags": ["cmake-project"],
+        "label": "CMake: Build",
+        "command": "cmake --build --preset default-build-$(uname)",
+        "tags": ["cmake-project", "native"],
     },
     {
-        "label": "CMake: Configure MacOS Debug",
-        "command": "cmake --preset macos-debug",
-        "tags": ["cmake-project"],
-    },
-    {
-        "label": "CMake: Configure MacOS Release",
-        "command": "cmake --preset macos-release",
-        "tags": ["cmake-project"],
-    },
-    {
-        "label": "CMake: Linux Build",
-        "command": "cmake --build --preset default-build-linux",
-        "tags": ["cmake-project"],
-    },
-    {
-        "label": "CMake: MacOS Build",
-        "command": "cmake --build --preset default-build-macos",
-        "tags": ["cmake-project"],
-    },
-    {
-        "label": "CMake: Linux Test",
-        "command": "cmake --test --preset core-test-linux",
-        "tags": ["cmake-project"],
-    },
-    {
-        "label": "CMake: MacOS Test",
-        "command": "cmake --test --preset core-test-macos",
-        "tags": ["cmake-project"],
+        "label": "CMake: Configure Release",
+        "command": "cmake --preset $(uname)-release",
+        "tags": ["cmake-project", "native"],
     },
 ]
