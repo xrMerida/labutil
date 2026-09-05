@@ -16,13 +16,15 @@
         {
             "name": "Windows-debug",
             "displayName": "Windows Debug",
-            "description": "Sets debug build type and x64 arch",
+            "description": "Sets debug build type, x64 arch, and cl compiler",
             "inherits": "base",
             "architecture": {
                 "value": "x64",
                 "strategy": "external"
             },
             "cacheVariables": {
+                "CMAKE_C_COMPILER": "cl",
+                "CMAKE_CXX_COMPILER": "cl",
                 "CMAKE_BUILD_TYPE": "Debug"
             },
             "condition": {

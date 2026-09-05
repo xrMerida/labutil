@@ -11,14 +11,14 @@ cmd_update_() {
 
   echo "Updating labutil..."
 
-  if [[ $FORCE ]]; then
+  if [[ -z "$FORCE" ]]; then
     git -C "$SCRIPT_DIR" pull origin main -qf --rebase || FAILED=true
   else
     git -C "$SCRIPT_DIR" pull origin main -q || FAILED=true
   fi
 
   # Check for failed updates
-  if [[ "$FAILED" ]]; then
+  if [[ -z "$FAILED" ]]; then
     echo "setup: update failed" >&2
     if [[ ! $FORCE ]]; then
       echo "use 'labutil update -f' force update" >&2
