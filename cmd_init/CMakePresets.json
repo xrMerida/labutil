@@ -54,14 +54,6 @@
                 "type": "equals",
                 "lhs": "${hostSystemName}",
                 "rhs": "Linux"
-            },
-            "vendor": {
-                "microsoft.com/VisualStudioSettings/CMake/1.0": {
-                    "hostOS": ["Linux"]
-                },
-                "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
-                    "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}"
-                }
             }
         },
         {
@@ -85,14 +77,6 @@
                 "type": "equals",
                 "lhs": "${hostSystemName}",
                 "rhs": "Darwin"
-            },
-            "vendor": {
-                "microsoft.com/VisualStudioSettings/CMake/1.0": {
-                    "hostOS": ["macOS"]
-                },
-                "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
-                    "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}"
-                }
             }
         },
         {
@@ -108,19 +92,19 @@
     "buildPresets": [
         {
             "name": "default-build-Linux",
-            "displayName": "Default",
+            "displayName": "Linux-default",
             "configurePreset": "Linux-debug",
             "description": "Vanilla build"
         },
         {
             "name": "default-build-Windows",
-            "displayName": "Default",
+            "displayName": "Windows-default",
             "configurePreset": "Windows-debug",
             "description": "Vanilla build"
         },
         {
             "name": "default-build-Darwin",
-            "displayName": "Default",
+            "displayName": "Darwin-default",
             "configurePreset": "Darwin-debug",
             "description": "Vanilla build"
         }

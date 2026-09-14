@@ -1,6 +1,6 @@
 [
     {
-        "label": "Linux Debug",
+        "label": "Native Debug",
         "build": "CMake: Build",
         "program": "$ZED_WORKTREE_ROOT/build/__LNAME",
         "request": "launch",
