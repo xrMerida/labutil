@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 cmd_update_() {
+  FORCE=false
+  FAILED=false
   if [[ $# -gt 1 ]]; then
     echo "error: update: too many arguments" >&2
     exit 1;
